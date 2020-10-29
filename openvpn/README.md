@@ -6,7 +6,7 @@ Here you will find the teraform script to create a [openvpn](https://openvpn.net
 ## Prerequisites
 
 - service account (json file)
-- require necessary permission to create resources
+- necessary permission to create resources
 - terraform
 
 ## How to use?
@@ -26,10 +26,13 @@ Here you will find the teraform script to create a [openvpn](https://openvpn.net
     $ terraform apply
     ```
 Try ssh into the instance
+
 `$ gcloud compute ssh ovpn --zone europe-west2-c`
     
 Change the openvpn user password
+
 `$ passwd openvpn`
    
 Access openvpn admin
+
 **https://instance-ip/admin**
