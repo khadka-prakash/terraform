@@ -17,7 +17,8 @@ resource "google_compute_instance" "ovpn" {
   }
 
   network_interface {
-    network = google_compute_network.ovpn.name
+//    network = google_compute_network.ovpn.name
+   subnetwork = google_compute_subnetwork.public[0].id
 
     access_config {
       // Include this section to give the VM an external ip address
@@ -32,20 +33,6 @@ data "template_file" "deployment_shell_script" {
   template = file("script.sh")
 }
 
-resource "google_compute_firewall" "http-server" {
-  name    = "default-allow-http"
-  network = "default"
-
-  allow {
-    protocol = "tcp"
-    ports    = ["22", "80", "443", "943", "1194"]
-  }
-
-  // Allow traffic from everywhere to instances with an http-server tag
-  source_ranges = ["0.0.0.0/0"]
-  target_tags   = ["http-server"]
-}
-
-output "ip" {
+output "private_ip" {
   value = "${google_compute_instance.ovpn.network_interface.0.access_config.0.nat_ip}"
 }

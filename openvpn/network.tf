@@ -13,7 +13,7 @@ resource "google_compute_firewall" "ovpn" {
 
   allow {
     protocol = "tcp"
-    ports    = ["22"]
+    ports    = ["22", "80", "443"]
   }
 
   allow {
@@ -21,15 +21,6 @@ resource "google_compute_firewall" "ovpn" {
     ports    = ["1194"]
   }
 
-  allow {
-    protocol = "tcp"
-    ports    = ["80"]
-  }
-
-  allow {
-    protocol = "tcp"
-    ports    = ["443"]
-  }
-
+  source_ranges = ["0.0.0.0/0"]
   target_tags = ["ovpn"]
 }
